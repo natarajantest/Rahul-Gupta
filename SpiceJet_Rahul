@@ -1,0 +1,47 @@
+package initialize;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class SpiceJet {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.spicejet.com/");
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@menuselection= 'false']")).sendKeys("Mumbai");
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//input[@menuselection= 'false']")).sendKeys("Chennai");
+		Thread.sleep(3000);
+		driver.findElement(By.id("ctl00_mainContent_view_date1")).click();
+		Actions act = new Actions(driver);
+		act.moveToElement(driver.findElement(By.xpath("//a[text()='12']"))).build().perform();
+		driver.findElement(By.xpath("//a[text()='12']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.className("paxinfo")).click();
+		Thread.sleep(1000);
+		for(int i=1;i<=3;i++){
+		driver.findElement(By.id("hrefIncAdt")).click();
+		i=i+1;
+		}
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//input[@id='btnclosepaxoption']")).click();
+		/*WebElement DepartDate = driver.findElement(By.xpath("//input[@ctl00_mainContent_view_date1"));
+		DepartDate.clear();
+		DepartDate.sendKeys();
+	*/	Thread.sleep(1000);
+//		driver.findElement(By.xpath("//select[@class='valid']")).sendKeys("USD");
+		Select currency=new Select(driver.findElement(By.id("ctl00_mainContent_DropDownListCurrency")));
+		currency.selectByValue("USD");
+		driver.findElement(By.id("ctl00_mainContent_btn_FindFlights")).click();
+	
+	}
+
+}
